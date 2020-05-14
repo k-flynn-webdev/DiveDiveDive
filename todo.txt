@@ -1,0 +1,39 @@
+tasks: ✅ ❌
+
+DiveDiveDive
+
+soundtrack: https://www.youtube.com/watch?v=aA9GhsYt2O0
+
+I'm thinking a nomansky kind of game but just solely on a dive mission. Like downwell but not as fast, but the worlds hrsh, you're a clone.
+
+loving the idea of falling down very tight casm only for it to really open up into a cave, multi routes
+
+Deaths are fast, funny, painful, sometimes comedic. 
+Score based on depth and points added.
+
+Stories help:
+	your on a spaceship floating above one of jupiters moons (could be levels?!?!)
+	The aim is to get to the bottom/source of water on a moon, through all the dangers. Deepest attempt compnay claims the moon? could be leaderboard style?
+
+controls:
+	boost down, jump
+	left + right stroll.
+
+boost down is the only weapon/action you have, left + right are cancelled on jump/boost.
+
+
+
+Theres water currents that push and force you
+water creatures
+stalacites and staganites
+underwater volcanos that will burn + force
+
+
+
+previous clones give points + boost (retrieved from players past a& server api)
+
+
+
+
+
+
