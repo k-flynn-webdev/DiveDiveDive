@@ -4,7 +4,9 @@ DiveDiveDive
 
 soundtrack: https://www.youtube.com/watch?v=aA9GhsYt2O0
 
-I'm thinking a nomansky kind of game but just solely on a dive mission. Like downwell but not as fast, but the worlds hrsh, you're a clone.
+I'm thinking a nomansky kind of game but just solely on a dive mission. Like downwell but not as fast, but the worlds hrsh, you're a clone. Also a bit of abyss inspiration
+
+
 
 loving the idea of falling down very tight casm only for it to really open up into a cave, multi routes
 
@@ -27,10 +29,10 @@ Theres water currents that push and force you
 water creatures
 stalacites and staganites
 underwater volcanos that will burn + force
+breaking into caverns will kill you (water floods in and you fall to death)
 
 
-
-previous clones give points + boost (retrieved from players past a& server api)
+previous clones give points + boost (retrieved from players past a& server api) can be a tactic? Maybe even semi multiplayer aspect of teams helping?
 
 
 
