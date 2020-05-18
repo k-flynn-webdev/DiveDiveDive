@@ -32,7 +32,7 @@ public class ScoreManager : MonoBehaviour
     {
         _score = newScore;
 
-        if (anim)
+        if (anim && _scoreAnim != null)
         {
             _scoreAnim.SetTrigger("score");
         }

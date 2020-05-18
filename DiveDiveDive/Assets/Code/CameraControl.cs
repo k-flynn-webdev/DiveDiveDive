@@ -45,10 +45,18 @@ public class CameraControl : MonoBehaviour
         this.transform.position = camPos;
     }
 
+    private void SetFollowAxesLocal(Vector3 axes)
+    {
+        _followAxesLocal = new Vector3(
+            axes[0] > 0.1f ? 1f : 0f,
+            axes[1] > 0.1f ? 1f : 0f,
+            axes[2] > 0.1f ? 1f : 0f);
+    }
+
     public void SetTarget()
     {
         _targetLocal = _targetDefault;
-        _followAxesLocal = _followAxes;
+        SetFollowAxesLocal(_followAxes);
         _followOffsetLocal = _followOffset;
         _followSmoothingLocal = _followSmoothing;
     }
@@ -56,7 +64,7 @@ public class CameraControl : MonoBehaviour
     public void SetTarget(Transform target)
     {
         _targetLocal = target;
-        _followAxesLocal = _followAxes;
+        SetFollowAxesLocal(_followAxes);
         _followOffsetLocal = _followOffset;
         _followSmoothingLocal = _followSmoothing;
     }
@@ -64,7 +72,7 @@ public class CameraControl : MonoBehaviour
     public void SetTarget(Transform target, Vector3 followAxes)
     {
         _targetLocal = target;
-        _followAxesLocal = followAxes;
+        SetFollowAxesLocal(followAxes);
         _followOffsetLocal = _followOffset;
         _followSmoothingLocal = _followSmoothing;
     }
@@ -72,7 +80,7 @@ public class CameraControl : MonoBehaviour
     public void SetTarget(Transform target, Vector3 followAxes, Vector3 followOffset)
     {
         _targetLocal = target;
-        _followAxesLocal = followAxes;
+        SetFollowAxesLocal(followAxes);
         _followOffsetLocal = followOffset;
         _followSmoothingLocal = _followSmoothing;
     }
@@ -80,21 +88,21 @@ public class CameraControl : MonoBehaviour
     public void SetTarget(Transform target, Vector3 followAxes, Vector3 followOffset, Vector3 followSmooth)
     {
         _targetLocal = target;
-        _followAxesLocal = followAxes;
+        SetFollowAxesLocal(followAxes);
         _followOffsetLocal = followOffset;
         _followSmoothingLocal = followSmooth;
     }
 
     float GetAxesPos(int axes)
     {
-        float pos = Mathf.Lerp(
-           this.transform.position[axes],
-           _targetLocal.position[axes],
-           _followSmoothingLocal[axes] * Time.deltaTime * _followAxesLocal[axes]);
+        float offsetVar = _followOffsetLocal[axes];
+        float current = this.transform.position[axes];
+        float goal = _targetLocal.position[axes] + offsetVar;
 
-        pos = Mathf.Lerp(pos, _targetLocal.position[axes] + _followOffsetLocal[axes], _followSmoothingLocal[axes] * Time.deltaTime);
-
-        return pos;
+        return Mathf.Lerp(
+            current,
+            goal,
+            (Time.deltaTime * _followSmoothingLocal[axes]) * _followAxesLocal[axes]);
     }
 
     void Update()
