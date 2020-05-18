@@ -2,5 +2,5 @@
 
 public interface ISubscribeEvent
 {
-    void ReactEvent(string state);
+    void ReactEvent(gameEventType state);
 }

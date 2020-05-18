@@ -2,18 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct gameEventType
+{
+    public string _type;
+    public object _value;
+    public float _time;
+
+    public gameEventType(string type, object value)
+    {
+        this._time = Time.time;
+        this._type = type;
+        this._value = value;
+    }
+}
+
 public class GameEvent : MonoBehaviour, IPublishEvent
 {
 
     [SerializeField]
-    private string _current;
+    private gameEventType _current;
     [SerializeField]
-    private string _last;
+    private gameEventType _last;
 
     private float _time;
 
     [SerializeField]
-    private string[] _events = new string[10];
+    private gameEventType[] _events = new gameEventType[10];
+
 
 
     void Awake()
@@ -21,12 +36,12 @@ public class GameEvent : MonoBehaviour, IPublishEvent
         ServiceLocator.Register<GameEvent>(this);
     }
 
-    public void NewEvent(string eventType)
+    public void NewEvent(gameEventType eventType)
     {
         float timeNow = Time.time;
         float timeDiff = timeNow - _time;
 
-        if (_current == eventType && timeDiff < .05f)
+        if (_current._type == eventType._type && timeDiff < .05f)
         {
             return;
         }
@@ -34,7 +49,7 @@ public class GameEvent : MonoBehaviour, IPublishEvent
         SetEvent(eventType);
     }
 
-    private void SetEvent(string eventType)
+    private void SetEvent(gameEventType eventType)
     {
         _last = _current;
         _current = eventType;
@@ -47,7 +62,7 @@ public class GameEvent : MonoBehaviour, IPublishEvent
         this.NotifyEvent();
     }
 
-    private void UpdateHistory(string newEvent)
+    private void UpdateHistory(gameEventType newEvent)
     {
         for (int i = _events.Length - 2; i > 0; i--)
         {

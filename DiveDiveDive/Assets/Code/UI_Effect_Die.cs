@@ -70,9 +70,9 @@ public class UI_Effect_Die : MonoBehaviour, ISubscribeEvent, ISubscribeState
         _whiteOutProgress = 0f;
     }
 
-    public void ReactEvent(string state)
+    public void ReactEvent(gameEventType state)
     {
-        if (state == "Died" && !active)
+        if (state._type.Equals("Died") && !active)
         {
             TurnOn();
         }

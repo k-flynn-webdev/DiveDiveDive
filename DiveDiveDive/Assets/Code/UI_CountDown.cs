@@ -58,7 +58,7 @@ public class UI_CountDown : MonoBehaviour, ISubscribeState
     IEnumerator CountDown_Go()
     {
         ServiceLocator.Resolve<ScoreManager>().SetScore(0f, false);
-        ServiceLocator.Resolve<GameEvent>().NewEvent("AllowPlayerInput");
+        ServiceLocator.Resolve<GameEvent>().NewEvent(new gameEventType("AllowPlayerInput", null));
         _UI_Text_GO.SetActive(true);
         yield return new WaitForSeconds(2f);
         _UI_Text_GO.SetActive(false);
