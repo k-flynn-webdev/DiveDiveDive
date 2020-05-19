@@ -16,7 +16,7 @@ public class ItemConfigEditor : Editor
 
         if (GUILayout.Button("Add"))
         {
-            myScript.Items.Add(new ItemColor());
+            myScript.Items.Add(new ItemColorObj());
             serializedObject.ApplyModifiedProperties();
         }
 

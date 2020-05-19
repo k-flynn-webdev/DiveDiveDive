@@ -8,8 +8,8 @@ public class ObjectPoolManager : MonoBehaviour
 {
 
     [SerializeField]
-    private readonly Dictionary<string, ObjectPoolInfo>
-    ItemPrefabs = new Dictionary<string, ObjectPoolInfo>();
+    private readonly Dictionary<string, ObjectPoolInfoObj>
+    ItemPrefabs = new Dictionary<string, ObjectPoolInfoObj>();
 
     [SerializeField]
     private ObjectPoolAssets ItemPrefabsAsset;
@@ -35,12 +35,17 @@ public class ObjectPoolManager : MonoBehaviour
     {
         for (int i = 0, max = ItemPrefabsAsset.Assets.Count; i < max; i++)
         {
-            ItemPrefabs[ItemPrefabsAsset.Assets[i].name] = new ObjectPoolInfo(ItemPrefabsAsset.Assets[i]);
+            ItemPrefabs[ItemPrefabsAsset.Assets[i].name] = new ObjectPoolInfoObj(ItemPrefabsAsset.Assets[i]);
         }
     }
 
     public ObjectPoolItem GetItem(string item, bool activate)
     {
+        if (item == null || item.Length < 1)
+        {
+            throw new System.Exception("No Item key given");
+        }
+
         if (!ItemPrefabs.ContainsKey(item))
         {
             #if UNITY_EDITOR

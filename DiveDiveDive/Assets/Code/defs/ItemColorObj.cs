@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class ItemColor
+public class ItemColorObj
 {
     [SerializeField]
     public Color _color;
     [SerializeField]
     public GameObject _item;
 
-    public ItemColor()
+    public ItemColorObj()
     {
         _color = new Color();
     }

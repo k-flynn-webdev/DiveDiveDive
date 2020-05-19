@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPoolInfo
+public class ObjectPoolInfoObj
 {
     public ObjectPoolItem prefab;
     public List<ObjectPoolItem> items = new List<ObjectPoolItem>();
 
-    public ObjectPoolInfo(ObjectPoolItem item)
+    public ObjectPoolInfoObj(ObjectPoolItem item)
     {
         this.prefab = item;
     }

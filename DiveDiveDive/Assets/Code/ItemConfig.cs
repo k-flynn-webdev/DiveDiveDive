@@ -6,7 +6,7 @@ using UnityEngine;
 public class ItemConfig : ScriptableObject
 {
     [SerializeField]
-    public List<ItemColor> Items = new List<ItemColor>();
+    public List<ItemColorObj> Items = new List<ItemColorObj>();
 
 
     public string GetItemFromColour(Color col)

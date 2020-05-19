@@ -7,6 +7,8 @@ using UnityEditor;
 public class ObjectPoolManagerEditor : Editor
 {
 
+    public string ItemText;
+
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
@@ -29,9 +31,14 @@ public class ObjectPoolManagerEditor : Editor
 
         GUILayout.Space(10f);
 
-        if (GUILayout.Button("Create"))
+        GUILayout.BeginHorizontal();
+        EditorGUIUtility.labelWidth = 40f;
+        EditorGUILayout.PrefixLabel("Item");
+        ItemText = EditorGUILayout.TextField(ItemText);
+        if (GUILayout.Button("Get"))
         {
-            myScript.GetItem("TestItem", true);
+            myScript.GetItem(ItemText, true);
         }
+        GUILayout.EndHorizontal();
     }
 }
