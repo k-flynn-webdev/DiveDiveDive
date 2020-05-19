@@ -2,32 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct GameEventType
-{
-    public string _type;
-    public object _value;
-    public float _time;
-
-    public GameEventType(string type, object value)
-    {
-        this._time = Time.time;
-        this._type = type;
-        this._value = value;
-    }
-}
 
 public class GameEvent : MonoBehaviour, IPublishEvent
 {
 
     [SerializeField]
-    private GameEventType _current;
+    public GameEventObj[] Events
+    { get { return this._events; } }
+
     [SerializeField]
-    private GameEventType _last;
+    private GameEventObj _current;
+    [SerializeField]
+    private GameEventObj _last;
 
     private float _time;
 
     [SerializeField]
-    private GameEventType[] _events = new GameEventType[10];
+    private GameEventObj[] _events = new GameEventObj[10];
 
 
 
@@ -36,12 +27,12 @@ public class GameEvent : MonoBehaviour, IPublishEvent
         ServiceLocator.Register<GameEvent>(this);
     }
 
-    public void NewEvent(GameEventType eventType)
+    public void NewEvent(GameEventObj eventType)
     {
         float timeNow = Time.time;
         float timeDiff = timeNow - _time;
 
-        if (_current._type == eventType._type && timeDiff < .05f)
+        if (_current._type == eventType._type && timeDiff < .25f)
         {
             return;
         }
@@ -49,7 +40,7 @@ public class GameEvent : MonoBehaviour, IPublishEvent
         SetEvent(eventType);
     }
 
-    private void SetEvent(GameEventType eventType)
+    private void SetEvent(GameEventObj eventType)
     {
         _last = _current;
         _current = eventType;
@@ -62,7 +53,7 @@ public class GameEvent : MonoBehaviour, IPublishEvent
         this.NotifyEvent();
     }
 
-    private void UpdateHistory(GameEventType newEvent)
+    private void UpdateHistory(GameEventObj newEvent)
     {
         for (int i = _events.Length - 2; i > 0; i--)
         {

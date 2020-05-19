@@ -360,7 +360,7 @@ public class CharacterMove : MonoBehaviour, ISubscribeState, ISubscribeEvent, IR
         _gameOver = state.state == GameStateObj.gameStates.Over;
     }
 
-    public void ReactEvent(GameEventType state)
+    public void ReactEvent(GameEventObj state)
     {
         if (state._type.Equals("DisablePlayerInput"))
         {
