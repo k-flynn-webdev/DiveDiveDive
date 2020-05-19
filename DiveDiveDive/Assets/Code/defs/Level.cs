@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Level: MonoBehaviour
 {
     public string ID { get { return this._id; } }
+    public bool Ready { get { return this._ready; } }
     public Vector3 Progress { get { return this._progress; } }
 
     [SerializeField]
@@ -16,75 +17,89 @@ public abstract class Level: MonoBehaviour
     [SerializeField]
     private bool _ready = false;
 
+    private IReset[] _itemsToReset;
+
+    private void Awake()
+    {
+        if (!_loaded)
+        {
+            _itemsToReset = GetComponentsInChildren<IReset>();
+            _loaded = true;
+        }
+    }
 
     public void SetProgress(Vector3 progress)
     {
         _progress = progress;
     }
 
-    public void SetReady(bool isReady)
+    private void SetReady(bool isReady)
     {
+        if (!_loaded)
+        {
+            _ready = false;
+            return;
+        }
+
         _ready = isReady;
     }
 
     public virtual void Load()
     {
-        _loaded = true;
-        ServiceLocator.Resolve<GameState>().SetStateTitle();
+        Awake();
+        Reset();
+
+        // todo do things here
+
+        ServiceLocator.Resolve<LevelManager>().LevelIsLoaded();
+    }
+
+    public virtual void Reset()
+    {
+        if (_itemsToReset.Length > 0)
+        {
+            for (int i = 0, max = _itemsToReset.Length; i < max; i++)
+            {
+                _itemsToReset[i].Reset();
+            }
+        }
+
+        SetReady(true);
     }
 
     // kills self and removes GO
     public virtual void UnLoad()
     {
-        _loaded = false;
-        Destroy(this.gameObject, 5f);
-    }
+        _ready = false;
 
-    public virtual void TitlePre(GameStateObj state)
-    {
-        SetReady(true);
-    }
+        // do things??
 
-    public virtual void Title() { }
 
-    public virtual void TitlePost(GameStateObj state)
-    {
-        SetReady(false);
+        //Destroy(this.gameObject, 5f);
     }
 
     public virtual void PlayPre(GameStateObj state)
     {
-        SetReady(true);
+        if (state.last != GameStateObj.gameStates.Pause)
+        {
+            Reset();
+        }
     }
 
     public virtual void Play() { }
 
-    public virtual void PlayPost(GameStateObj state)
-    {
-        SetReady(false);
-    }
+    public virtual void PlayPost() { }
 
-    public virtual void PausePre(GameStateObj state)
-    {
-        SetReady(true);
-    }
+    public virtual void PausePre() { }
 
     public virtual void Pause() { }
 
-    public virtual void PausePost(GameStateObj state)
-    {
-        SetReady(false);
-    }
+    public virtual void PausePost() { }
 
-    public virtual void OverPre(GameStateObj state)
-    {
-        SetReady(true);
-    }
+    public virtual void OverPre() { }
 
     public virtual void Over() { }
 
-    public virtual void OverPost(GameStateObj state)
-    {
-        SetReady(false);
-    }
+    public virtual void OverPost() { }
+
 }

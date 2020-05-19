@@ -85,6 +85,7 @@
     <Compile Include="Assets\Code\Item.cs" />
     <Compile Include="Assets\Code\ItemConfig.cs" />
     <Compile Include="Assets\Code\Level_01.cs" />
+    <Compile Include="Assets\Code\Level_02.cs" />
     <Compile Include="Assets\Code\LevelManager.cs" />
     <Compile Include="Assets\Code\ObjectPoolAssets.cs" />
     <Compile Include="Assets\Code\ObjectPoolItem.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Assets\Code\ScoreAdd.cs" />
     <Compile Include="Assets\Code\ScoreManager.cs" />
     <Compile Include="Assets\Code\ServiceLocator.cs" />
+    <Compile Include="Assets\Code\Title_01.cs" />
     <Compile Include="Assets\Code\UI_CountDown.cs" />
     <Compile Include="Assets\Code\UI_Effect_Die.cs" />
     <Compile Include="Assets\Code\UI_FPS.cs" />

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level_01 : Level
+public class Title_01 : Level
 {
 
 }
