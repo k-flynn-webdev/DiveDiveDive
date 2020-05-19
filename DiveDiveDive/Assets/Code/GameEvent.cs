@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct gameEventType
+public struct GameEventType
 {
     public string _type;
     public object _value;
     public float _time;
 
-    public gameEventType(string type, object value)
+    public GameEventType(string type, object value)
     {
         this._time = Time.time;
         this._type = type;
@@ -20,14 +20,14 @@ public class GameEvent : MonoBehaviour, IPublishEvent
 {
 
     [SerializeField]
-    private gameEventType _current;
+    private GameEventType _current;
     [SerializeField]
-    private gameEventType _last;
+    private GameEventType _last;
 
     private float _time;
 
     [SerializeField]
-    private gameEventType[] _events = new gameEventType[10];
+    private GameEventType[] _events = new GameEventType[10];
 
 
 
@@ -36,7 +36,7 @@ public class GameEvent : MonoBehaviour, IPublishEvent
         ServiceLocator.Register<GameEvent>(this);
     }
 
-    public void NewEvent(gameEventType eventType)
+    public void NewEvent(GameEventType eventType)
     {
         float timeNow = Time.time;
         float timeDiff = timeNow - _time;
@@ -49,7 +49,7 @@ public class GameEvent : MonoBehaviour, IPublishEvent
         SetEvent(eventType);
     }
 
-    private void SetEvent(gameEventType eventType)
+    private void SetEvent(GameEventType eventType)
     {
         _last = _current;
         _current = eventType;
@@ -62,7 +62,7 @@ public class GameEvent : MonoBehaviour, IPublishEvent
         this.NotifyEvent();
     }
 
-    private void UpdateHistory(gameEventType newEvent)
+    private void UpdateHistory(GameEventType newEvent)
     {
         for (int i = _events.Length - 2; i > 0; i--)
         {
@@ -72,23 +72,23 @@ public class GameEvent : MonoBehaviour, IPublishEvent
     }
 
     public List<ISubscribeEvent> EventSubscribers
-    { get { return this.eventsubscribers; } }
+    { get { return this._eventSubscribers; } }
 
-    private List<ISubscribeEvent> eventsubscribers = new List<ISubscribeEvent>();
+    private List<ISubscribeEvent> _eventSubscribers = new List<ISubscribeEvent>();
 
 
     public void NotifyEvent()
     {
-        for (int i = eventsubscribers.Count - 1; i >= 0; i--)
+        for (int i = EventSubscribers.Count - 1; i >= 0; i--)
         {
-            eventsubscribers[i].ReactEvent(_current);
+            EventSubscribers[i].ReactEvent(_current);
         }
     }
 
     public void SubscribeEvent(ISubscribeEvent listener)
-    { eventsubscribers.Add(listener); }
+    { _eventSubscribers.Add(listener); }
 
     public void UnSubscribeEvent(ISubscribeEvent listener)
-    { eventsubscribers.Remove(listener); }
+    { _eventSubscribers.Remove(listener); }
 
 }

@@ -67,7 +67,8 @@
     <Compile Include="Assets\Editor\ItemConfigEditor.cs" />
     <Compile Include="Assets\Editor\ObjectPoolAssetsEditor.cs" />
     <Compile Include="Assets\Editor\ObjectPoolItemEditor.cs" />
-    <Compile Include="Assets\Editor\ObjectPoolManager.cs" />
+    <Compile Include="Assets\Editor\ObjectPoolManagerEditor.cs" />
+    <Compile Include="Assets\Editor\ScoreManagerEditor.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>/Users/kevinflynn/studio/games/DiveDiveDive/DiveDiveDive/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

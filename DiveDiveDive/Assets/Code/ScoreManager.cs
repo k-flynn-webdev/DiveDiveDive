@@ -1,22 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : MonoBehaviour, IPublishScore
 {
 
     [SerializeField]
-    public float Score
+    public ScoreObj Score
     { get { return this._score; } }
 
-    private float _score = 0f;
+    private ScoreObj _score;
 
-    [SerializeField]
-    private TextMeshProUGUI[] _ScoreText;
-    [SerializeField]
-    Animator _scoreAnim;
+    public List<ISubscribeScore> ScoreSubscribers
+    { get { return this._scoreSubscribers; } }
+
+    private List<ISubscribeScore> _scoreSubscribers = new List<ISubscribeScore>();
 
     void Awake()
     {
@@ -25,23 +23,34 @@ public class ScoreManager : MonoBehaviour
 
     public void AddScore(float addScore)
     {
-        SetScore(Score + addScore, true);
+        SetScore(Score._valueFloat + addScore);
     }
 
-    public void SetScore(float newScore, bool anim)
+    public void SetScore(float scoreValue)
     {
-        _score = newScore;
-
-        if (anim && _scoreAnim != null)
-        {
-            _scoreAnim.SetTrigger("score");
-        }
-
-        for (int i = 0; i < _ScoreText.Length; i++)
-        {
-            _ScoreText[i].text = _score.ToString();
-        }
-
-        ServiceLocator.Resolve<GameEvent>().NewEvent(new gameEventType("score", null));
+        _score = new ScoreObj(scoreValue);
+        NotifyScore();
     }
+
+    public void SetScore(string scoreText)
+    {
+        _score = new ScoreObj(scoreText);
+        NotifyScore();
+    }
+
+    public void NotifyScore()
+    {
+        for (int i = ScoreSubscribers.Count - 1; i >= 0; i--)
+        {
+            ScoreSubscribers[i].ReactScore(Score);
+        }
+    }
+
+    public void SubscribeScore(ISubscribeScore listener)
+    { _scoreSubscribers.Add(listener); }
+
+
+    public void UnSubscribeScore(ISubscribeScore listener)
+    { _scoreSubscribers.Remove(listener); }
+
 }

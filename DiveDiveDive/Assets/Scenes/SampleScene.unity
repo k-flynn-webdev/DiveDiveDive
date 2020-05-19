@@ -1760,7 +1760,7 @@ CanvasGroup:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 738998638}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
@@ -2099,6 +2099,7 @@ GameObject:
   m_Component:
   - component: {fileID: 765195035}
   - component: {fileID: 765195037}
+  - component: {fileID: 765195038}
   - component: {fileID: 765195036}
   m_Layer: 5
   m_Name: Score
@@ -2246,6 +2247,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765195034}
   m_CullTransparentMesh: 0
+--- !u!114 &765195038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765195034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 084bf93fbf9d944169fba773497f61c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &791139376
 GameObject:
   m_ObjectHideFlags: 0
@@ -3011,7 +3024,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000084399}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 478b7bb9498e244c7bfa72cab6377e42, type: 3}
   m_Name: 

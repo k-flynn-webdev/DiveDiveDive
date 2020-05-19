@@ -82,7 +82,7 @@ public class CharacterMove : MonoBehaviour, ISubscribeState, ISubscribeEvent, IR
         _rotNormal = this.transform.localRotation;
     }
 
-    public void Reset ()
+    public void Reset()
     {
         _speedVar = new Vector3();
         _hitVar = new Vector3();
@@ -156,7 +156,8 @@ public class CharacterMove : MonoBehaviour, ISubscribeState, ISubscribeEvent, IR
         if (rotDir > _rotateBias)
         {
             goal = Quaternion.Lerp(_rotNormal, _rotJump, rotDir * _rotateOnChange);
-        } else
+        }
+        else
         {
             goal = Quaternion.Lerp(_rotNormal, _rotFall, (rotDir * -1f) * _rotateOnChange);
         }
@@ -209,7 +210,7 @@ public class CharacterMove : MonoBehaviour, ISubscribeState, ISubscribeEvent, IR
             return;
         }
 
-        _speedVar = Vector3.Lerp(Vector3.zero, _speed, _speedVel.Evaluate(_speedTimer/_speedDuration));
+        _speedVar = Vector3.Lerp(Vector3.zero, _speed, _speedVel.Evaluate(_speedTimer / _speedDuration));
 
         if (_speedTimer < 5f)
         {
@@ -231,7 +232,7 @@ public class CharacterMove : MonoBehaviour, ISubscribeState, ISubscribeEvent, IR
 
         if (_isJump)
         {
-            _jumpVar = Vector3.Lerp(Vector3.zero, _jump, _jumpVel.Evaluate(_jumpTimer/_jumpDuration));
+            _jumpVar = Vector3.Lerp(Vector3.zero, _jump, _jumpVel.Evaluate(_jumpTimer / _jumpDuration));
         }
 
         if (_jumpTimer < 5f)
@@ -254,7 +255,7 @@ public class CharacterMove : MonoBehaviour, ISubscribeState, ISubscribeEvent, IR
 
         if (_isFall)
         {
-            _fallVar = Vector3.Lerp(Vector3.zero, _fall, _fallVel.Evaluate(_fallTimer/_fallDuration));
+            _fallVar = Vector3.Lerp(Vector3.zero, _fall, _fallVel.Evaluate(_fallTimer / _fallDuration));
         }
 
         if (_isFall && _fallTimer < 5f)
@@ -352,13 +353,14 @@ public class CharacterMove : MonoBehaviour, ISubscribeState, ISubscribeEvent, IR
         _inertiaVar = Vector3.zero;
     }
 
-    public void ReactState(GameStateObj state) {
+    public void ReactState(GameStateObj state)
+    {
         State = state;
         _gameInPlay = state.state == GameStateObj.gameStates.Play;
         _gameOver = state.state == GameStateObj.gameStates.Over;
     }
 
-    public void ReactEvent(gameEventType state)
+    public void ReactEvent(GameEventType state)
     {
         if (state._type.Equals("DisablePlayerInput"))
         {

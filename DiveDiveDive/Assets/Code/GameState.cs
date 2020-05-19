@@ -69,21 +69,21 @@ public class GameState : MonoBehaviour, IPublishState
     public void SetStateOver() => ChangeState(GameStateObj.gameStates.Over);
 
     public List<ISubscribeState> StateSubscribers
-    { get { return this.statesubscribers; } }
+    { get { return this._stateSubscribers; } }
     
-    private List<ISubscribeState> statesubscribers = new List<ISubscribeState>();
+    private List<ISubscribeState> _stateSubscribers = new List<ISubscribeState>();
 
     public void NotifyState()
     {
-        for (int i = statesubscribers.Count - 1; i >= 0; i--)
+        for (int i = StateSubscribers.Count - 1; i >= 0; i--)
         {
-            statesubscribers[i].ReactState(this._gameState);
+            StateSubscribers[i].ReactState(this._gameState);
         }
     }
 
     public void SubscribeState(ISubscribeState listener)
-    { statesubscribers.Add(listener); }
+    { _stateSubscribers.Add(listener); }
 
     public void UnSubscribeState(ISubscribeState listener)
-    { statesubscribers.Remove(listener); }
+    { _stateSubscribers.Remove(listener); }
 }

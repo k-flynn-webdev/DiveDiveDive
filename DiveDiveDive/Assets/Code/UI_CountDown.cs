@@ -36,29 +36,29 @@ public class UI_CountDown : MonoBehaviour, ISubscribeState
 
     IEnumerator CountDown_3()
     {
-        ServiceLocator.Resolve<ScoreManager>().SetScore(3f, true);
+        ServiceLocator.Resolve<ScoreManager>().SetScore(3f);
         yield return new WaitForSeconds(_waitTime_Secs);
         StartCoroutine(CountDown_2());
     }
 
     IEnumerator CountDown_2()
     {
-        ServiceLocator.Resolve<ScoreManager>().SetScore(2f, true);
+        ServiceLocator.Resolve<ScoreManager>().SetScore(2f);
         yield return new WaitForSeconds(_waitTime_Secs);
         StartCoroutine(CountDown_1());
     }
 
     IEnumerator CountDown_1()
     {
-        ServiceLocator.Resolve<ScoreManager>().SetScore(1f, true);
+        ServiceLocator.Resolve<ScoreManager>().SetScore(1f);
         yield return new WaitForSeconds(_waitTime_Secs);
         StartCoroutine(CountDown_Go());
     }
 
     IEnumerator CountDown_Go()
     {
-        ServiceLocator.Resolve<ScoreManager>().SetScore(0f, false);
-        ServiceLocator.Resolve<GameEvent>().NewEvent(new gameEventType("AllowPlayerInput", null));
+        ServiceLocator.Resolve<ScoreManager>().SetScore(0f);
+        ServiceLocator.Resolve<GameEvent>().NewEvent(new GameEventType("AllowPlayerInput", null));
         _UI_Text_GO.SetActive(true);
         yield return new WaitForSeconds(2f);
         _UI_Text_GO.SetActive(false);
