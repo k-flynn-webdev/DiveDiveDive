@@ -47,7 +47,7 @@ public abstract class Level: MonoBehaviour
     public virtual void Load()
     {
         Awake();
-        Reset();
+        //Reset();
 
         // todo do things here
 
@@ -73,9 +73,6 @@ public abstract class Level: MonoBehaviour
         _ready = false;
 
         // do things??
-
-
-        //Destroy(this.gameObject, 5f);
     }
 
     public virtual void PlayPre(GameStateObj state)
