@@ -20,15 +20,4 @@ public static class ServiceLocator
     {
         Services.Clear();
     }
-
-    //public static void PrintServices()
-    //{
-    //    foreach (KeyValuePair<Type, object> pair in Services)
-    //    {
-    //        Debug.Log(pair.Key);
-    //        Debug.Log(pair.Value);
-    //        //Use pair.Key to get the key
-    //        //Use pair.Value for value
-    //    }
-    //}
 }

@@ -39,7 +39,17 @@ public class ObjectPoolManager : MonoBehaviour
         }
     }
 
+    public ObjectPoolItem GetItem(string item)
+    {
+        return GetItem(item, true, Vector3.zero);
+    }
+
     public ObjectPoolItem GetItem(string item, bool activate)
+    {
+        return GetItem(item, activate, Vector3.zero);
+    }
+
+    public ObjectPoolItem GetItem(string item, bool activate, Vector3 position)
     {
         if (item == null || item.Length < 1)
         {
@@ -48,13 +58,10 @@ public class ObjectPoolManager : MonoBehaviour
 
         if (!ItemPrefabs.ContainsKey(item))
         {
-            #if UNITY_EDITOR
-                Debug.Log(item + " key does not exist - object manager");
-            #endif
-            return null;
+            throw new System.Exception(item + " key does not exist - object manager");
         }
 
-        return ItemPrefabs[item].GetItem(activate);
+        return ItemPrefabs[item].GetItem(activate, position);
     }
 
     public void CheckCount()

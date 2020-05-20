@@ -123,6 +123,7 @@ public class LevelManager : MonoBehaviour, ISubscribeState
         _currentObj = ServiceLocator.Resolve<ObjectPoolManager>().GetItem(levelToLoad, true);
         _currentLvl = _currentObj.GetComponent<Level>();
         _currentLvl.Load();
+        _currentLvl.PlayPre(State);
     }
 
 

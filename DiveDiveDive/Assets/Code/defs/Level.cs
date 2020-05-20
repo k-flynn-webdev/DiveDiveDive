@@ -47,7 +47,7 @@ public abstract class Level: MonoBehaviour
     public virtual void Load()
     {
         Awake();
-        //Reset();
+        Reset();
 
         // todo do things here
 
@@ -81,6 +81,8 @@ public abstract class Level: MonoBehaviour
         {
             Reset();
         }
+
+        Debug.Log("pre done");
     }
 
     public virtual void Play() { }

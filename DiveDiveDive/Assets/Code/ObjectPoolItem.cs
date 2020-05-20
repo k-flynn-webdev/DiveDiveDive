@@ -40,15 +40,20 @@ public class ObjectPoolItem : MonoBehaviour
 
     public void Reset()
     {
+        if (ItemResets == null || ItemResets.Length < 1)
+        {
+            return;
+        }
+
         for (int i = 0; i < ItemResets.Length; i++)
         {
             ItemResets[i].Reset();
         }
     }
 
-    public ObjectPoolItem CreateItem(bool activate, string name)
+    public ObjectPoolItem CreateItem(string name, bool activate, Vector3 position)
     {
-        ObjectPoolItem tmpObj = Instantiate(this, new Vector3(0, 0, 0), Quaternion.identity);
+        ObjectPoolItem tmpObj = Instantiate(this, position, Quaternion.identity);
         if (activate)
         {
             tmpObj.SetItemActive();

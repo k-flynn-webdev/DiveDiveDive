@@ -14,12 +14,18 @@ public class ObjectPoolInfoObj
 
     public ObjectPoolItem GetItem(bool activate)
     {
+        return GetItem(activate, Vector3.zero);
+    }
+
+    public ObjectPoolItem GetItem(bool activate, Vector3 position)
+    {
         for (int i = 0, max = items.Count; i < max; i++)
         {
             if (!items[i].Active)
             {
                 if (activate)
                 {
+                    items[i].transform.position = position;
                     items[i].SetItemActive();
                     #if UNITY_EDITOR
                         ServiceLocator.Resolve<ObjectPoolManager>().CheckCount();
@@ -29,7 +35,7 @@ public class ObjectPoolInfoObj
             }
         }
 
-        ObjectPoolItem tmpItem = this.prefab.CreateItem(activate, this.prefab.name);
+        ObjectPoolItem tmpItem = this.prefab.CreateItem(this.prefab.name, activate, position);
         this.items.Add(tmpItem);
         #if UNITY_EDITOR
             ServiceLocator.Resolve<ObjectPoolManager>().CheckCount();

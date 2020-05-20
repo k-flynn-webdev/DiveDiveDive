@@ -29,9 +29,6 @@ public class CameraControl : MonoBehaviour
     private Vector3 _followOffsetLocal = new Vector3();
     private Vector3 _followSmoothingLocal = new Vector3();
 
-    [SerializeField]
-    private float _minAmount = 0.05f;
-
     void Awake()
     {
         SetTarget();
@@ -55,34 +52,22 @@ public class CameraControl : MonoBehaviour
 
     public void SetTarget()
     {
-        _targetLocal = _targetDefault;
-        SetFollowAxesLocal(_followAxes);
-        _followOffsetLocal = _followOffset;
-        _followSmoothingLocal = _followSmoothing;
+        SetTarget(_targetDefault, _followAxes, _followOffset, _followSmoothing);
     }
 
     public void SetTarget(Transform target)
     {
-        _targetLocal = target;
-        SetFollowAxesLocal(_followAxes);
-        _followOffsetLocal = _followOffset;
-        _followSmoothingLocal = _followSmoothing;
+        SetTarget(target, _followAxes, _followOffset, _followSmoothing);
     }
 
     public void SetTarget(Transform target, Vector3 followAxes)
     {
-        _targetLocal = target;
-        SetFollowAxesLocal(followAxes);
-        _followOffsetLocal = _followOffset;
-        _followSmoothingLocal = _followSmoothing;
+        SetTarget(target, followAxes, _followOffset, _followSmoothing);
     }
 
     public void SetTarget(Transform target, Vector3 followAxes, Vector3 followOffset)
     {
-        _targetLocal = target;
-        SetFollowAxesLocal(followAxes);
-        _followOffsetLocal = followOffset;
-        _followSmoothingLocal = _followSmoothing;
+        SetTarget(target, followAxes, followOffset, _followSmoothing);
     }
 
     public void SetTarget(Transform target, Vector3 followAxes, Vector3 followOffset, Vector3 followSmooth)
@@ -107,14 +92,7 @@ public class CameraControl : MonoBehaviour
 
     void Update()
     {
-        Vector3 newPos = new Vector3(GetAxesPos(0), GetAxesPos(1), GetAxesPos(2));
-        float distance = Vector3.Distance(this.transform.position, newPos);
-
-        if (distance < _minAmount)
-        {
-            return;
-        }
-
-        this.transform.position = newPos;
+        this.transform.position =
+            new Vector3(GetAxesPos(0), GetAxesPos(1), GetAxesPos(2)); ;
     }
 }

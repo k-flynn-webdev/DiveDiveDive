@@ -12,14 +12,17 @@ public class ItemConfig : ScriptableObject
     public string GetItemFromColour(Color col)
     {
 
-        //Debug.Log(col);
-
         for (int i = 0, max = Items.Count; i < max; i++)
         {
             if (Items[i]._color.r == col.r &&
                 Items[i]._color.g == col.g &&
                 Items[i]._color.b == col.b)
             {
+                if (Items[i]._item == null)
+                {
+                    throw new System.Exception("No item attached to color - item config");
+                }
+
                 return Items[i]._item.name;
             }
         }

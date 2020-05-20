@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class GameStateUI: MonoBehaviour
 {
+    private void Start()
+    {
+        ServiceLocator.Register<GameStateUI>(this);
+    }
+
     public void SetStateLoad()
     {
         ServiceLocator.Resolve<GameState>().ChangeState(GameStateObj.gameStates.Load);

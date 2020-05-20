@@ -12,6 +12,11 @@ public class ImageRead : MonoBehaviour
 
     public static void SetImage(Texture2D image)
     {
+        if (image == null)
+        {
+            throw new System.Exception("No image provided - ImageRead");
+        }
+
         if (_tmpImg != null && _tmpImg.Equals(image))
         {
             return;
