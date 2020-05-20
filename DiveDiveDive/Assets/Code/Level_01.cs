@@ -34,6 +34,13 @@ public class Level_01 : Level
 
     private void RenderLevel()
     {
+        int posHash = ServiceLocator.Resolve<TileRender>().PositionToHash(Progress);
+
+        if (posHash == _lastRender)
+        {
+            return;
+        }
+
         _lastRender = ServiceLocator.Resolve<TileRender>().Render(Progress);
     }
 
