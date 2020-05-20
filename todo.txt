@@ -32,5 +32,7 @@ previous clones give points + boost (retrieved from players past a& server api) 
 
 parallax is super important!
 
+Theres time pressure, if you don't move much the ship will start to abort your clone ..
+Maybe the pressure can be going time without an airline, having to drop and reconnect at certain depths?
 
 

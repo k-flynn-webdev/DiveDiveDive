@@ -80,6 +80,8 @@ public class CharacterMove : MonoBehaviour, ISubscribeState, ISubscribeEvent, IR
         ServiceLocator.Resolve<GameState>().SubscribeState(this);
         ServiceLocator.Resolve<GameEvent>().SubscribeEvent(this);
         _rotNormal = this.transform.localRotation;
+
+        ReactState(ServiceLocator.Resolve<GameState>().State);
     }
 
     public void Reset()

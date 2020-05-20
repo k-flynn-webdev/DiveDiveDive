@@ -194,4 +194,5 @@ MonoBehaviour:
     _renderSizeInt: 0
     _renderSizeHalfInt: 0
     _renderScreenDist: 0
-  _follow: {fileID: 7947762630147306103}
+  _playerStartPos: {x: 5, y: 30, z: 0}
+  _playerCamOffset: {x: 5, y: -15, z: -10}

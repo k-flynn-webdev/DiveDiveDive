@@ -10,7 +10,14 @@ public class Level_01 : Level
 
     private int _lastRender;
 
-    public Transform _follow;
+    [SerializeField]
+    public Vector3 _playerStartPos;
+    [SerializeField]
+    public Vector3 _playerCamOffset;
+
+    private Player _player;
+    private ObjectPoolItem _playerObj;
+
 
     public override void Load()
     {
@@ -22,12 +29,19 @@ public class Level_01 : Level
         //    _lvlConfig._renderTexture);
         //ServiceLocator.Resolve<TileRender>().SetupRender(_config);
 
+        SetupPlayer();
+
+        ServiceLocator.Resolve<CameraControl>().SetTarget(
+            _playerObj.transform,
+            new Vector3(1f,1f,0f),
+            _playerCamOffset);
+
         base.Load();
     }
 
     public override void Reset()
     {
-        SetProgress(_follow.position);
+        SetProgress(_playerStartPos);
 
         base.Reset();
     }
@@ -45,6 +59,18 @@ public class Level_01 : Level
     }
 
 
+    private void SetupPlayer()
+    {
+        if (_playerObj == null)
+        {
+            _playerObj = ServiceLocator.Resolve<ObjectPoolManager>().GetItem("Player", false, _playerStartPos);
+            _player = _playerObj.GetComponent<Player>();
+        }
+
+        _playerObj.Reset();
+        _playerObj.SetItemActive();
+        _playerObj.transform.position = _playerStartPos;
+    }
 
     public override void PlayPre(GameStateObj state)
     {
@@ -55,7 +81,11 @@ public class Level_01 : Level
 
     public override void Play()
     {
-        SetProgress(_follow.position);
+        if (_playerObj != null)
+        {
+            SetProgress(_playerObj.transform.position);
+        }
+
         RenderLevel();
 
         base.Play();
@@ -64,6 +94,8 @@ public class Level_01 : Level
     public override void UnLoad()
     {
         //ServiceLocator.Resolve<TileRender>().Render(Progress);
+
+        _playerObj.SetItemNotActive();
 
         base.UnLoad();
     }

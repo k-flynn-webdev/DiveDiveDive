@@ -76,6 +76,21 @@ public class CameraControl : MonoBehaviour
         SetFollowAxesLocal(followAxes);
         _followOffsetLocal = followOffset;
         _followSmoothingLocal = followSmooth;
+
+        float distance = Vector3.Distance(
+            this.transform.position,
+            target.transform.position);
+
+        if (distance > 50f)
+        {
+            Vector3 newPos =
+                Vector3.MoveTowards(
+                target.transform.position + followOffset,
+                this.transform.position,
+                50f);
+
+            SetPosition(newPos);
+        }
     }
 
     float GetAxesPos(int axes)

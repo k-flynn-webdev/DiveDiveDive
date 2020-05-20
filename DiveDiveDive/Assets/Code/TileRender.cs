@@ -50,7 +50,7 @@ public class TileRender : MonoBehaviour
     }
 
 
-    private ObjectPoolItem GetItem(string item, Vector3 position)
+    public ObjectPoolItem GetItem(string item, Vector3 position)
     {
         ObjectPoolItem temp =
             ServiceLocator.Resolve<ObjectPoolManager>().GetItem(item, true, position);

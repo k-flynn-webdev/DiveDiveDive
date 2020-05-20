@@ -91,6 +91,7 @@
     <Compile Include="Assets\Code\ItemConfig.cs" />
     <Compile Include="Assets\Code\Level_01.cs" />
     <Compile Include="Assets\Code\Level_02.cs" />
+    <Compile Include="Assets\Code\Level_Basic.cs" />
     <Compile Include="Assets\Code\LevelManager.cs" />
     <Compile Include="Assets\Code\ObjectPoolAssets.cs" />
     <Compile Include="Assets\Code\ObjectPoolItem.cs" />

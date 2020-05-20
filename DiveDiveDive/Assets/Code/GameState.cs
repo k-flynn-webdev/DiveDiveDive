@@ -5,6 +5,9 @@ using UnityEngine;
 public class GameState : MonoBehaviour, IPublishState
 {
 
+    public GameStateObj State
+    { get { return this._gameState; } }
+
     [SerializeField]
     private GameStateObj _gameState = new GameStateObj();
 
