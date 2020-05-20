@@ -30,6 +30,6 @@ public class TileConfigObj
 
         this._renderSizeInt = Mathf.RoundToInt(this._renderSize / this._tileSize);
         this._renderSizeHalfInt = Mathf.RoundToInt(this._renderSizeInt / 2);
-        this._renderScreenDist = this._renderSize * 1.25f;
+        this._renderScreenDist = this._renderSize * 1.2f;
     }
 }
