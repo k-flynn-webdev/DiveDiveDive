@@ -7,13 +7,14 @@ public class TileConfigObj
 {
     public float _tileSize;
     public float _renderSize;
-    public Vector2 _offsetPre;
+    public Vector3 _offsetPre;
     public Vector3 _offsetPost;
     public ItemConfig _itemConfig;
     public Texture2D _renderTexture;
+    public Vector2 _renderTexturePivot;
 
-    public int[] _renderOffsetInt = new int[3];
-    public Vector3 _renderOffsetFloat;
+    public int[] _renderTexturePivotInt = new int[3];
+    public Vector3 _renderTexturePivotOffset;
 
     public int _renderSizeInt;
     public int _renderSizeHalfInt;
@@ -22,14 +23,13 @@ public class TileConfigObj
     public TileConfigObj(
     float tileSize,
     float renderSize,
-    Vector3 offsetPost,
     ItemConfig config,
     Texture2D texture)
     {
         this._tileSize = tileSize;
         this._renderSize = renderSize;
-        this._offsetPre = Vector2.zero;
-        this._offsetPost = offsetPost;
+        this._offsetPre = Vector3.zero;
+        this._offsetPost = Vector3.zero;
         this._itemConfig = config;
         this._renderTexture = texture;
 
@@ -37,20 +37,21 @@ public class TileConfigObj
         this._renderSizeHalfInt = Mathf.RoundToInt(this._renderSizeInt / 2);
         this._renderScreenDist = this._renderSize * 1.2f;
 
-        this._renderOffsetInt[0] = 0;
-        this._renderOffsetInt[1] = 0;
-        this._renderOffsetInt[2] = 0;
+        this._renderTexturePivotInt[0] = 0;
+        this._renderTexturePivotInt[1] = 0;
+        this._renderTexturePivotInt[2] = 0;
 
-        this._renderOffsetFloat = Vector3.zero;
+        this._renderTexturePivotOffset = Vector3.zero;
     }
 
     public TileConfigObj(
     float tileSize,
     float renderSize,
+    Vector3 offsetPre,
     Vector3 offsetPost,
     ItemConfig config,
     Texture2D texture,
-    Vector2 offsetPre)
+    Vector2 texturePivot)
     {
         this._tileSize = tileSize;
         this._renderSize = renderSize;
@@ -63,13 +64,13 @@ public class TileConfigObj
         this._renderSizeHalfInt = Mathf.RoundToInt(this._renderSizeInt / 2);
         this._renderScreenDist = this._renderSize * 1.2f;
 
-        this._renderOffsetInt[0] = (int)(offsetPre.x * (float)texture.width);
-        this._renderOffsetInt[1] = (int)(offsetPre.y * (float)texture.height);
-        this._renderOffsetInt[2] = 0;
+        this._renderTexturePivotInt[0] = (int)(texturePivot.x * (float)texture.width);
+        this._renderTexturePivotInt[1] = (int)(texturePivot.y * (float)texture.height);
+        this._renderTexturePivotInt[2] = 0;
 
-        this._renderOffsetFloat = new Vector3(
-            (int)(offsetPre.x * (float)texture.width) * tileSize,
-            (int)(offsetPre.y * (float)texture.height) * tileSize,
-            0f * tileSize);
+        this._renderTexturePivotOffset = new Vector3(
+            this._renderTexturePivotInt[0] * tileSize,
+            this._renderTexturePivotInt[1] * tileSize,
+            this._renderTexturePivotInt[2] * tileSize);
     }
 }

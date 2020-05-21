@@ -1233,7 +1233,7 @@ MonoBehaviour:
   _targetDefault: {fileID: 1298802679}
   _followAxes: {x: 1, y: 1, z: 0}
   _followOffset: {x: 5, y: 10, z: -10}
-  _followSmoothing: {x: 1, y: 4, z: 1}
+  _followSmoothing: {x: 4, y: 4, z: 4}
   _targetLocal: {fileID: 0}
 --- !u!114 &534669907
 MonoBehaviour:

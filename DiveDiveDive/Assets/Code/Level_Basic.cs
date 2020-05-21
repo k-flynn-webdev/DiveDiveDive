@@ -15,9 +15,11 @@ public class Level_Basic : Level
         _config = new TileConfigObj(
             _lvlConfig._tileSize,
             _lvlConfig._renderSize,
+            _lvlConfig._offsetPre,
             _lvlConfig._offsetPost,
             _lvlConfig._itemConfig,
-            _lvlConfig._renderTexture);
+            _lvlConfig._renderTexture,
+            _lvlConfig._renderTexturePivot);
         ServiceLocator.Resolve<TileRender>().SetupRender(_config);
 
         base.Load();

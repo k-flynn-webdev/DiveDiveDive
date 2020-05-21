@@ -60,7 +60,7 @@ public class TileRender : MonoBehaviour
 
     private int[] PositionToPixel(Vector3 position)
     {
-        Vector3 newPos = position + _config._renderOffsetFloat;
+        Vector3 newPos = (position + _config._renderTexturePivotOffset) - _config._offsetPre;
 
         int[] tmp = new int[3];
         tmp[0] = (int)(newPos.x / _config._tileSize);
@@ -106,9 +106,10 @@ public class TileRender : MonoBehaviour
         }
 
         Vector3 tmpPos =
-            PositionFromPixel(x, y, 0)
-            - _config._renderOffsetFloat
-            + _config._offsetPost;
+            (PositionFromPixel(x, y, 0)
+            + _config._offsetPre
+            + _config._offsetPost)
+            - _config._renderTexturePivotOffset;
 
         ObjectPoolItem _itemFound = FindItemAtPosition(tmpPos, objectType);
         if (_itemFound != null)

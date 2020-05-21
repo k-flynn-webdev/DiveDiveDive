@@ -188,14 +188,15 @@ MonoBehaviour:
   _lvlConfig:
     _tileSize: 5
     _renderSize: 66
-    _offsetPre: {x: 0, y: 1}
+    _offsetPre: {x: 0, y: 0, z: 0}
     _offsetPost: {x: 0, y: 0, z: 0}
     _itemConfig: {fileID: 11400000, guid: 666f65522cf7648a0beb24559e2b670d, type: 2}
     _renderTexture: {fileID: 2800000, guid: c85ca3b1c62444e63ac7c1c7319a9f32, type: 3}
-    _renderOffsetInt: 
-    _renderOffsetFloat: {x: 0, y: 0, z: 0}
+    _renderTexturePivot: {x: 0, y: 1}
+    _renderTexturePivotInt: 
+    _renderTexturePivotOffset: {x: 0, y: 0, z: 0}
     _renderSizeInt: 0
     _renderSizeHalfInt: 0
     _renderScreenDist: 0
   _playerStartPos: {x: 5, y: 30, z: 0}
-  _playerCamOffset: {x: 5, y: -15, z: -10}
+  _playerCamOffset: {x: 5, y: -5, z: -10}
