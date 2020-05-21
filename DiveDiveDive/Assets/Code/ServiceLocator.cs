@@ -11,6 +11,11 @@ public static class ServiceLocator
         Services[typeof(T)] = serviceInstance;
     }
 
+    public static void UnRegister<T>()
+    {
+        Services.Remove(typeof(T));
+    }
+
     public static T Resolve<T>()
     {
         return (T)Services[typeof(T)];

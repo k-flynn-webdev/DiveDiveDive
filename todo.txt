@@ -36,3 +36,21 @@ Theres time pressure, if you don't move much the ship will start to abort your c
 Maybe the pressure can be going time without an airline, having to drop and reconnect at certain depths?
 
 
+later:
+	https://github.com/prime31/TouchKit - touch recognition helper ..
+
+
+
+how to do character collision?
+
+
+
+
+
+
+
+
+
+
+
+

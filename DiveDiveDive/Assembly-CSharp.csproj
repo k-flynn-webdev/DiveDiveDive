@@ -68,6 +68,7 @@
     <Compile Include="Assets\Code\CameraBg.cs" />
     <Compile Include="Assets\Code\CameraControl.cs" />
     <Compile Include="Assets\Code\CharacterMove.cs" />
+    <Compile Include="Assets\Code\CharMove.cs" />
     <Compile Include="Assets\Code\CloudBg.cs" />
     <Compile Include="Assets\Code\defs\GameEventObj.cs" />
     <Compile Include="Assets\Code\defs\GameStateObj.cs" />
@@ -80,6 +81,8 @@
     <Compile Include="Assets\Code\GameState.cs" />
     <Compile Include="Assets\Code\GameStateUI.cs" />
     <Compile Include="Assets\Code\ImageRead.cs" />
+    <Compile Include="Assets\Code\interfaces\IActive.cs" />
+    <Compile Include="Assets\Code\interfaces\INotActive.cs" />
     <Compile Include="Assets\Code\interfaces\IPublishEvent.cs" />
     <Compile Include="Assets\Code\interfaces\IPublishScore.cs" />
     <Compile Include="Assets\Code\interfaces\IPublishState.cs" />
@@ -101,6 +104,8 @@
     <Compile Include="Assets\Code\ScoreAdd.cs" />
     <Compile Include="Assets\Code\ScoreManager.cs" />
     <Compile Include="Assets\Code\ServiceLocator.cs" />
+    <Compile Include="Assets\Code\Temp\PlayerController.cs" />
+    <Compile Include="Assets\Code\Temp\ProceduralMachine.cs" />
     <Compile Include="Assets\Code\TileRender.cs" />
     <Compile Include="Assets\Code\Title_01.cs" />
     <Compile Include="Assets\Code\UI_CountDown.cs" />

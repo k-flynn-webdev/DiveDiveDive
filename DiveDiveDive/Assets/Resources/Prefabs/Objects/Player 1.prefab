@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2999499061133951587}
   - component: {fileID: 114709542471235828}
   - component: {fileID: 2999499061133951586}
+  - component: {fileID: 2999499061133951589}
+  - component: {fileID: 2999499061133951591}
   - component: {fileID: 986121319428817942}
-  - component: {fileID: 143679713767704638}
-  - component: {fileID: 114999137062858040}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -62,6 +62,128 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9a8a4de91b942469459f3b365b9cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2999499061133951589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2999499061133951584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1921ab24e281545c18fdcdb70fde5471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: {x: 0, y: 0, z: 0}
+  _jump: {x: 0, y: 1, z: 0}
+  _fall: {x: 0, y: 0, z: 0}
+  _speedDuration: 1.5
+  _speedVel:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.010288066
+      value: 0.11067963
+      inSlope: 1.6491778
+      outSlope: 1.6491778
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.034979407
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _jumpDuration: 0.3
+  _jumpVel:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: -0.16640934
+      inSlope: 2.6318164
+      outSlope: 3.5037827
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.16169685
+    - serializedVersion: 3
+      time: 0.33458424
+      value: 1.0059011
+      inSlope: 3.5037827
+      outSlope: -1.5116881
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.102843344
+      outWeight: 0.084257856
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1.5116881
+      outSlope: 0
+      tangentMode: 69
+      weightedMode: 0
+      inWeight: 0.098814666
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _fallDuration: 0.6
+  _fallVel:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.1
+      inSlope: 0.28065312
+      outSlope: 0.28065312
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.08726002
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1.6809922
+      outSlope: 1.6809922
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.055846512
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _rotateOnChange: 3
+  _rotateBias: 0.1
+  _slowWhenJumping: 1
+  _jumpInterrupt: 0.2
+  _ground: -1000
+  _rotJump: {x: 0, y: 0, z: 0.2, w: 0.8}
+  _rotFall: {x: 0, y: 0, z: -0.3, w: 0.7}
+--- !u!54 &2999499061133951591
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2999499061133951584}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!135 &986121319428817942
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -75,39 +197,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.75
   m_Center: {x: 0, y: 1, z: 0}
---- !u!143 &143679713767704638
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2999499061133951584}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114999137062858040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2999499061133951584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10af9dc141b7e4e479d1d47cdf25c3c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 15
-  _jump: 3
-  gravity: 10
 --- !u!1 &7519045847410167306
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +223,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7519045847410167306}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2999499061133951587}

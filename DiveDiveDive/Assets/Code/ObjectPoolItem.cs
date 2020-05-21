@@ -12,12 +12,19 @@ public class ObjectPoolItem : MonoBehaviour
     private bool _isActive = false;
 
     public Item Item;
-    public IReset[] ItemResets;
+    [SerializeField]
+    private IReset[] ItemResets;
+    [SerializeField]
+    private IActive[] IActive;
+    private INotActive[] INotActive;
 
     private void Awake()
     {
         Item = GetComponent<Item>();
         ItemResets = GetComponentsInChildren<IReset>();
+        IActive = GetComponentsInChildren<IActive>();
+        INotActive = GetComponentsInChildren<INotActive>();
+
         _isActive = false;
         this.gameObject.SetActive(false);
     }
@@ -26,16 +33,27 @@ public class ObjectPoolItem : MonoBehaviour
     {
         _isActive = true;
         this.gameObject.SetActive(true);
+
+        for (int i = 0, max = IActive.Length; i < max; i++)
+        {
+            IActive[i].Active();
+        }
     }
 
     public void SetItemNotActive()
     {
         _isActive = false;
-        this.gameObject.SetActive(false);
         this.Reset();
+        this.gameObject.SetActive(false);
+
         #if UNITY_EDITOR
             ServiceLocator.Resolve<ObjectPoolManager>().CheckCount();
         #endif
+
+        for (int i = 0, max = INotActive.Length; i < max; i++)
+        {
+            INotActive[i].NotActive();
+        }
     }
 
     public void Reset()

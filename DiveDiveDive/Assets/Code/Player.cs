@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IActive, INotActive
 {
+    private CharMove _charMove;
     private CharacterMove _characterMove;
 
 
     void Awake()
     {
-        ServiceLocator.Register<Player>(this);
+        _charMove = GetComponent<CharMove>();
         _characterMove = GetComponent<CharacterMove>();
     }
 
@@ -33,5 +34,15 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         ServiceLocator.Resolve<GameState>().SetStateOver();
+    }
+
+    public void Active()
+    {
+        ServiceLocator.Register<Player>(this);
+    }
+
+    public void NotActive()
+    {
+        ServiceLocator.UnRegister<Player>();
     }
 }
