@@ -60,10 +60,12 @@ public class TileRender : MonoBehaviour
 
     private int[] PositionToPixel(Vector3 position)
     {
+        Vector3 newPos = position + _config._renderOffsetFloat;
+
         int[] tmp = new int[3];
-        tmp[0] = (int)position.x / (int)_config._tileSize;
-        tmp[1] = (int)position.y / (int)_config._tileSize;
-        tmp[2] = (int)position.z / (int)_config._tileSize;
+        tmp[0] = (int)(newPos.x / _config._tileSize);
+        tmp[1] = (int)(newPos.y / _config._tileSize);
+        tmp[2] = (int)(newPos.z / _config._tileSize);
 
         return tmp;
     }
@@ -103,15 +105,18 @@ public class TileRender : MonoBehaviour
             return;
         }
 
-        Vector3 tmpPos = PositionFromPixel(x, y, 0);
+        Vector3 tmpPos =
+            PositionFromPixel(x, y, 0)
+            - _config._renderOffsetFloat
+            + _config._offsetPost;
 
-        ObjectPoolItem _itemFound = FindItemAtPosition(tmpPos + _config._offset, objectType);
+        ObjectPoolItem _itemFound = FindItemAtPosition(tmpPos, objectType);
         if (_itemFound != null)
         {
             return;
         }
 
-        ObjectPoolItem tmp = GetItem(objectType, tmpPos + _config._offset);
+        ObjectPoolItem tmp = GetItem(objectType, tmpPos);
     }
 
 

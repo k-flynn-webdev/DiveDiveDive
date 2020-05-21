@@ -18,9 +18,10 @@ public class Title_01 : Level
         _config = new TileConfigObj(
             _lvlConfig._tileSize,
             _lvlConfig._renderSize,
-            _lvlConfig._offset,
+            _lvlConfig._offsetPost,
             _lvlConfig._itemConfig,
-            _lvlConfig._renderTexture);
+            _lvlConfig._renderTexture,
+            _lvlConfig._offsetPre);
         ServiceLocator.Resolve<TileRender>().SetupRender(_config);
 
         SetupShip();

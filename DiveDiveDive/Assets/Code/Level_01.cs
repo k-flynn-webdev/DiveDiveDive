@@ -21,13 +21,14 @@ public class Level_01 : Level
 
     public override void Load()
     {
-        //_config = new TileConfigObj(
-        //    _lvlConfig._tileSize,
-        //    _lvlConfig._renderSize,
-        //    _lvlConfig._offset,
-        //    _lvlConfig._itemConfig,
-        //    _lvlConfig._renderTexture);
-        //ServiceLocator.Resolve<TileRender>().SetupRender(_config);
+        _config = new TileConfigObj(
+            _lvlConfig._tileSize,
+            _lvlConfig._renderSize,
+            _lvlConfig._offsetPost,
+            _lvlConfig._itemConfig,
+            _lvlConfig._renderTexture,
+            _lvlConfig._offsetPre);
+        ServiceLocator.Resolve<TileRender>().SetupRender(_config);
 
         SetupPlayer();
 

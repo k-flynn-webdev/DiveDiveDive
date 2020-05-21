@@ -186,11 +186,14 @@ MonoBehaviour:
   _loaded: 0
   _ready: 0
   _lvlConfig:
-    _tileSize: 0
-    _renderSize: 0
-    _offset: {x: 0, y: 0, z: 0}
-    _itemConfig: {fileID: 0}
-    _renderTexture: {fileID: 0}
+    _tileSize: 5
+    _renderSize: 66
+    _offsetPre: {x: 0, y: 1}
+    _offsetPost: {x: 0, y: 0, z: 0}
+    _itemConfig: {fileID: 11400000, guid: 666f65522cf7648a0beb24559e2b670d, type: 2}
+    _renderTexture: {fileID: 2800000, guid: c85ca3b1c62444e63ac7c1c7319a9f32, type: 3}
+    _renderOffsetInt: 
+    _renderOffsetFloat: {x: 0, y: 0, z: 0}
     _renderSizeInt: 0
     _renderSizeHalfInt: 0
     _renderScreenDist: 0
