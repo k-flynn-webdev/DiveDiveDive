@@ -46,12 +46,7 @@ public class Title_01 : Level
 
     private void SetupShip()
     {
-        if (_shipObj == null)
-        {
-            _shipObj = ServiceLocator.Resolve<TileRender>().GetItem("Ship", _shipStartPos);
-        }
-
-        _shipObj.SetItemActive();
+        _shipObj = ServiceLocator.Resolve<TileRender>().GetItem("Ship", _shipStartPos);
         _shipObj.transform.position = _shipStartPos;
     }
 
