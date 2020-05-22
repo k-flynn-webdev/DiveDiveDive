@@ -12,6 +12,8 @@ public class CharMove : MonoBehaviour, IReset
     [SerializeField]
     private float _jumpLength = 1f;
     [SerializeField]
+    private float _sideJumpLength = 1f;
+    [SerializeField]
     private float _jumpCoolDown = 1.5f;
     [SerializeField]
     private float _gravity = -10f;
@@ -63,7 +65,7 @@ public class CharMove : MonoBehaviour, IReset
     private float _moveTime;
     private float _groundTime;
 
-
+    private Vector3 _jumpSideDir;
 
     private CharacterController _characterController;
 
@@ -72,14 +74,6 @@ public class CharMove : MonoBehaviour, IReset
     {
         _characterController = GetComponent<CharacterController>();
         Reset();
-        //if (_characterController.isGrounded)
-        //{
-        //    Ground();
-        //}
-        //else
-        //{
-        //    Fall();
-        //}
     }
 
     private void Update()
@@ -96,17 +90,13 @@ public class CharMove : MonoBehaviour, IReset
             {
                 Jump();
             }
-
-            if (IsGrounded)
+            if (Input.GetAxisRaw("Horizontal") < 0f)
             {
-                if (Input.GetAxisRaw("Horizontal") < 0f)
-                {
-                    Left();
-                }
-                if (Input.GetAxisRaw("Horizontal") > 0f)
-                {
-                    Right();
-                }
+                Left();
+            }
+            if (Input.GetAxisRaw("Horizontal") > 0f)
+            {
+                Right();
             }
         }
 
@@ -125,8 +115,8 @@ public class CharMove : MonoBehaviour, IReset
 
         JumpUpdate();
         FallUpdate();
-        GroundUpdate();
         SideUpdate();
+        GroundUpdate();
 
         _characterController.Move(_moveSpeed * Time.deltaTime);
     }
@@ -146,7 +136,7 @@ public class CharMove : MonoBehaviour, IReset
 
         _jumpCoolDownTime = _jumpCoolDown;
 
-        _moveSpeed = new Vector3(0f, _jump * _jump, 0f);
+        _moveSpeed = new Vector3(_moveSpeed.x, _jump * _jump, 0f);
     }
 
     private void JumpUpdate()
@@ -154,6 +144,7 @@ public class CharMove : MonoBehaviour, IReset
         if (_jumpCoolDownTime > 0f)
         {
             _jumpCoolDownTime -= Time.deltaTime;
+            _jumpSideDir = Vector3.zero;
         }
 
         if (!IsJumping)
@@ -168,7 +159,7 @@ public class CharMove : MonoBehaviour, IReset
 
         float jumpPower = (_jump * _jump) * (1f - normalPower);
 
-        _moveSpeed = new Vector3(0f, jumpPower, 0f);
+        _moveSpeed = new Vector3(_moveSpeed.x, jumpPower, 0f);
 
         if (_jumpTime > _jumpLength)
         {
@@ -177,7 +168,6 @@ public class CharMove : MonoBehaviour, IReset
             Fall();
         }
     }
-
 
     private void Fall()
     {
@@ -201,11 +191,13 @@ public class CharMove : MonoBehaviour, IReset
         _fallTime += Time.deltaTime;
 
         float gravityPower = _gravityCurve.Evaluate(_fallTime) * _gravity;
+        float gravityPress = gravityPower + _moveSpeed.y;
+        if (gravityPress < _gravity)
+        {
+            gravityPress = _gravity;
+        }
 
-        Vector3 _gravityTmp =
-            new Vector3(0f, gravityPower, 0f) * Time.deltaTime;
-
-        _moveSpeed = _moveSpeed + _gravityTmp;
+        _moveSpeed = new Vector3(_moveSpeed.x, gravityPress, _moveSpeed.z);
     }
 
 
@@ -218,6 +210,8 @@ public class CharMove : MonoBehaviour, IReset
 
         IsFalling = false;
         IsGrounded = true;
+
+        _moveSpeed = new Vector3(0f, _moveSpeed.y, _moveSpeed.z) ;
 
         GroundUpdate();
     }
@@ -241,15 +235,24 @@ public class CharMove : MonoBehaviour, IReset
     }
 
 
-    private void Left() {
-        IsMoving = true;
-        dirType = -1f;
-    } 
-    private void Right() {
-        IsMoving = true;
-        dirType = 1f;
+    private void Left()
+    {
+        SideMove(-1f);
     }
-
+    private void Right()
+    {
+        SideMove(1f);
+    }
+    private void SideMove(float dir)
+    {
+        IsMoving = true;
+        dirType = dir;
+        if (IsJumping)
+        {
+            _jumpSideDir = new Vector3(_sideJumpLength * dir, 0f, 0f);
+            _moveSpeed += _jumpSideDir;
+        }
+    }
 
     private void SideUpdate()
     {
@@ -291,5 +294,35 @@ public class CharMove : MonoBehaviour, IReset
         _jumpCoolDownTime = 0f;
 
         _moveSpeed = Vector3.zero;
+    }
+
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        void ForceFall()
+        {
+            IsJumping = false;
+            Fall();
+            _fallTime += 0.5f;
+        }
+
+        if (IsJumping)
+        {
+            Vector3 diff = hit.point - this.transform.position;
+            float bodyDiff = Mathf.Abs(diff.x);
+
+            if (diff.y >= _characterController.height * 0.8f)
+            {
+                _moveSpeed = new Vector3(_moveSpeed.x, _moveSpeed.y * 0.5f, _moveSpeed.z);
+                ForceFall();
+            }
+
+            if (bodyDiff >= _characterController.radius * 0.33f)
+            {
+                IsMoving = false;
+                _moveSpeed = new Vector3(_moveSpeed.x * 0.25f, _moveSpeed.y, _moveSpeed.z);
+                ForceFall();
+            }
+        }
     }
 }
