@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2999499061133951584}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -100, y: -100, z: -100}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 1405989194212266541}
   m_Father: {fileID: 0}
@@ -105,9 +105,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10af9dc141b7e4e479d1d47cdf25c3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 15
-  _jump: 3
-  gravity: 10
+  _speed: 10
+  _jump: 6
+  _jumpLength: 0.4
+  _jumpCoolDown: 1.33
+  _gravity: -30
+  _gravityCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.05
+      inSlope: 0.32001728
+      outSlope: 0.32001728
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.09424083
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7519045847410167306
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +191,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cc1981607ed97422b9f338fea7722c1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
