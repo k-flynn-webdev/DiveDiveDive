@@ -17,6 +17,8 @@ public class CharMove : MonoBehaviour, IReset
     private float _jumpCoolDown = 1.5f;
     [SerializeField]
     private float _gravity = -10f;
+    [SerializeField]
+    private float _downPress = -0.5f;
 
     [SerializeField]
     private AnimationCurve _gravityCurve;
@@ -224,14 +226,7 @@ public class CharMove : MonoBehaviour, IReset
         }
 
         _groundTime += Time.deltaTime;
-        float downPress = -0.1f * Time.deltaTime;
-        downPress += _moveSpeed.y;
-        if (downPress < _gravity)
-        {
-            downPress = _gravity;
-        }
-
-        _moveSpeed = new Vector3(_moveSpeed.x, downPress, _moveSpeed.z);
+        _moveSpeed = new Vector3(_moveSpeed.x, _downPress, _moveSpeed.z);
     }
 
 
@@ -308,6 +303,8 @@ public class CharMove : MonoBehaviour, IReset
 
         if (IsJumping)
         {
+            IsMoving = false;
+
             Vector3 diff = hit.point - this.transform.position;
             float bodyDiff = Mathf.Abs(diff.x);
 
