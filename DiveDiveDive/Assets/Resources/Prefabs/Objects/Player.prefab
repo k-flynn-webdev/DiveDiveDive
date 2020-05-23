@@ -107,11 +107,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 20
   _jump: 8
-  _jumpLength: 0.4
-  _sideJumpLength: 0.5
+  _jumpLength: 0.33
+  _sideJump: 5
   _jumpCoolDown: 1
-  _gravity: -30
+  _gravity: -20
   _downPress: -0.5
+  _downLength: 0.2
   _gravityCurve:
     serializedVersion: 2
     m_Curve:

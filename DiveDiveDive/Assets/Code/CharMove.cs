@@ -12,7 +12,7 @@ public class CharMove : MonoBehaviour, IReset
     [SerializeField]
     private float _jumpLength = 1f;
     [SerializeField]
-    private float _sideJumpLength = 1f;
+    private float _sideJump = 1f;
     [SerializeField]
     private float _jumpCoolDown = 1.5f;
     [SerializeField]
@@ -77,7 +77,7 @@ public class CharMove : MonoBehaviour, IReset
     private float _moveTime;
     private float _groundTime;
 
-    private Vector3 _jumpSideDir;
+    private Vector3 _jumpMove;
 
     private CharacterController _characterController;
 
@@ -148,9 +148,10 @@ public class CharMove : MonoBehaviour, IReset
         IsDown = false;
         IsGrounded = false;
 
+        dirType = 0f;
         _jumpCoolDownTime = _jumpCoolDown;
 
-        _moveSpeed = new Vector3(_moveSpeed.x, _jump * _jump, 0f);
+        _moveSpeed = new Vector3(0f, _jump * _jump, 0f);
     }
 
     private void JumpUpdate()
@@ -158,7 +159,7 @@ public class CharMove : MonoBehaviour, IReset
         if (_jumpCoolDownTime > 0f)
         {
             _jumpCoolDownTime -= Time.deltaTime;
-            _jumpSideDir = Vector3.zero;
+            _jumpMove = Vector3.zero;
         }
 
         if (!IsJumping)
@@ -268,17 +269,27 @@ public class CharMove : MonoBehaviour, IReset
             return;
         }
 
-        IsMoving = true;
-        dirType = dir;
+        if (IsGrounded)
+        {
+            dirType = dir * _speed;
+        }
+
         if (IsJumping)
         {
-            _jumpSideDir = new Vector3(_sideJumpLength * dir, 0f, 0f);
-            _moveSpeed += _jumpSideDir;
+            dirType = dir * (_sideJump * 10f);
         }
+
+        IsMoving = true;
     }
 
     private void SideUpdate()
     {
+        if (IsJumping)
+        {
+            SideAccel(dirType, 1f);
+            return;
+        }
+
         if (IsFalling)
         {
             SideAccel(0f, 1f);
@@ -297,7 +308,7 @@ public class CharMove : MonoBehaviour, IReset
 
     private void SideAccel(float dir, float decelOverride)
     {
-        float moveX = Mathf.Lerp(_moveSpeed.x, _speed * dir, Time.deltaTime * decelOverride);
+        float moveX = Mathf.Lerp(_moveSpeed.x, dir, Time.deltaTime * decelOverride);
         _moveSpeed = new Vector3(moveX, _moveSpeed.y, _moveSpeed.z);
     }
 
@@ -305,6 +316,7 @@ public class CharMove : MonoBehaviour, IReset
         if (IsGrounded && _moveTime > 0.1f)
         {
             IsMoving = false;
+            dirType = 0f;
         }
 
         if (IsDown)
@@ -318,6 +330,7 @@ public class CharMove : MonoBehaviour, IReset
             IsJumping = false;
             IsFalling = false;
             IsMoving = false;
+            dirType = 0f;
         }
     }
 
@@ -330,7 +343,7 @@ public class CharMove : MonoBehaviour, IReset
 
         _downTime += Time.deltaTime;
 
-        float downPressMax = _gravity * 3f;
+        float downPressMax = _gravity * 5f;
         float moveY = Mathf.Lerp(_moveSpeed.y, downPressMax, Time.deltaTime * 30f);
 
         _moveSpeed = new Vector3(_moveSpeed.x, moveY, _moveSpeed.z);
