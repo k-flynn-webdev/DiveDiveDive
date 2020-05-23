@@ -298,6 +298,8 @@ public class CharMove : MonoBehaviour, IReset
     }
 
 
+    // future, add a check for did I move from previous frame???
+
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         void ForceFall()
