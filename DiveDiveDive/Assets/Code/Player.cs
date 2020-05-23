@@ -45,4 +45,25 @@ public class Player : MonoBehaviour, IActive, INotActive
     {
         ServiceLocator.UnRegister<Player>();
     }
+
+
+    public void Left()
+    {
+        _charMove.Left();
+    }
+
+    public void Right()
+    {
+        _charMove.Right();
+    }
+
+    public void Jump()
+    {
+        _charMove.Jump();
+    }
+
+    public void Down()
+    {
+        _charMove.Down();
+    }
 }

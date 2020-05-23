@@ -109,7 +109,7 @@ MonoBehaviour:
   _jump: 8
   _jumpLength: 0.4
   _sideJumpLength: 0.5
-  _jumpCoolDown: 1.33
+  _jumpCoolDown: 1
   _gravity: -30
   _downPress: -0.5
   _gravityCurve:

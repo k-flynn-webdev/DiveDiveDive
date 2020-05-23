@@ -19,6 +19,8 @@ public class CharMove : MonoBehaviour, IReset
     private float _gravity = -10f;
     [SerializeField]
     private float _downPress = -0.5f;
+    [SerializeField]
+    private float _downLength = 2f;
 
     [SerializeField]
     private AnimationCurve _gravityCurve;
@@ -41,6 +43,12 @@ public class CharMove : MonoBehaviour, IReset
         set { _isFalling = value; _fallTime = 0f; }
     }
     [SerializeField]
+    private bool IsDown
+    {
+        get { return _isDown; }
+        set { _isDown = value; _downTime = 0f; }
+    }
+    [SerializeField]
     private bool IsMoving
     {
         get { return _isMoving; }
@@ -59,11 +67,13 @@ public class CharMove : MonoBehaviour, IReset
 
     private bool _isJumping = false;
     private bool _isFalling = false;
+    private bool _isDown = false;
     private bool _isMoving = false;
     private bool _isGrounded = false;
 
     private float _jumpTime;
     private float _fallTime;
+    private float _downTime;
     private float _moveTime;
     private float _groundTime;
 
@@ -117,6 +127,7 @@ public class CharMove : MonoBehaviour, IReset
 
         JumpUpdate();
         FallUpdate();
+        DownUpdate();
         SideUpdate();
         GroundUpdate();
 
@@ -126,7 +137,7 @@ public class CharMove : MonoBehaviour, IReset
 
 
 
-    private void Jump()
+    public void Jump()
     {
         if (IsJumping || _jumpCoolDownTime > 0f)
         {
@@ -134,6 +145,7 @@ public class CharMove : MonoBehaviour, IReset
         }
 
         IsJumping = true;
+        IsDown = false;
         IsGrounded = false;
 
         _jumpCoolDownTime = _jumpCoolDown;
@@ -173,7 +185,7 @@ public class CharMove : MonoBehaviour, IReset
 
     private void Fall()
     {
-        if (IsJumping)
+        if (IsJumping || IsDown)
         {
             return;
         }
@@ -192,11 +204,20 @@ public class CharMove : MonoBehaviour, IReset
 
         _fallTime += Time.deltaTime;
 
-        float gravityPower = _gravityCurve.Evaluate(_fallTime) * _gravity;
-        float gravityPress = gravityPower + _moveSpeed.y;
-        if (gravityPress < _gravity)
+        float gravityPower = 0f;
+        float gravityPress = 0f;
+
+        if (_moveSpeed.y < _gravity)
         {
-            gravityPress = _gravity;
+            gravityPress = Mathf.Lerp(_moveSpeed.y, _gravity, Time.deltaTime * 10f);
+        } else
+        {
+            gravityPower = _gravityCurve.Evaluate(_fallTime) * _gravity;
+            gravityPress = gravityPower + _moveSpeed.y;
+            if (gravityPress < _gravity)
+            {
+                gravityPress = _gravity;
+            }
         }
 
         _moveSpeed = new Vector3(_moveSpeed.x, gravityPress, _moveSpeed.z);
@@ -211,6 +232,7 @@ public class CharMove : MonoBehaviour, IReset
         }
 
         IsFalling = false;
+        IsDown = false;
         IsMoving = false;
         IsGrounded = true;
 
@@ -231,11 +253,11 @@ public class CharMove : MonoBehaviour, IReset
     }
 
 
-    private void Left()
+    public void Left()
     {
         SideMove(-1f);
     }
-    private void Right()
+    public void Right()
     {
         SideMove(1f);
     }
@@ -279,15 +301,56 @@ public class CharMove : MonoBehaviour, IReset
         _moveSpeed = new Vector3(moveX, _moveSpeed.y, _moveSpeed.z);
     }
 
-    private void Down() {
-        IsMoving = false;
-        _moveSpeed = new Vector3(_moveSpeed.x, (_jump * _jump) * -1f, _moveSpeed.z);
+    public void Down() {
+        if (IsGrounded && _moveTime > 0.1f)
+        {
+            IsMoving = false;
+        }
+
+        if (IsDown)
+        {
+            return;
+        }
+
+        if (_jumpTime > 0.1f || _fallTime > 0.2f)
+        {
+            IsDown = true;
+            IsJumping = false;
+            IsFalling = false;
+            IsMoving = false;
+        }
+    }
+
+    private void DownUpdate()
+    {
+        if (!IsDown)
+        {
+            return;
+        }
+
+        _downTime += Time.deltaTime;
+
+        float downPressMax = _gravity * 3f;
+        float moveY = Mathf.Lerp(_moveSpeed.y, downPressMax, Time.deltaTime * 30f);
+
+        _moveSpeed = new Vector3(_moveSpeed.x, moveY, _moveSpeed.z);
+
+        if (_downTime > _downLength)
+        {
+            IsDown = false;
+
+            if (!IsGrounded)
+            {
+                Fall();
+            }
+        }
     }
 
     public void Reset()
     {
         IsJumping = false;
         IsFalling = true;
+        IsDown = false;
         IsMoving = false;
         IsGrounded = false;
 
