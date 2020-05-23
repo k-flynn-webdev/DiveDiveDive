@@ -41,7 +41,6 @@ later:
 
 
 
-how to do character collision?
 
 
 

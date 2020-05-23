@@ -107,9 +107,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 20
   _jump: 8
-  _jumpLength: 0.33
+  _jumpLength: 0.4
   _sideJump: 5
-  _jumpCoolDown: 1
+  _jumpCoolDown: 0.9
   _gravity: -20
   _downPress: -0.5
   _downLength: 0.2
@@ -119,20 +119,20 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0.05
-      inSlope: 0.32001728
-      outSlope: 0.32001728
+      inSlope: 0.03857336
+      outSlope: 0.03857336
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.09424083
+      outWeight: 0.08376963
     - serializedVersion: 3
-      time: 1
+      time: 2
       value: 1
-      inSlope: 2
-      outSlope: 2
+      inSlope: 1.3185112
+      outSlope: 1.3185112
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.03839451
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
