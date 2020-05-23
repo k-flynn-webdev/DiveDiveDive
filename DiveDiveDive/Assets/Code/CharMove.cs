@@ -211,6 +211,7 @@ public class CharMove : MonoBehaviour, IReset
         }
 
         IsFalling = false;
+        IsMoving = false;
         IsGrounded = true;
 
         _moveSpeed = new Vector3(0f, _moveSpeed.y, _moveSpeed.z) ;
@@ -240,6 +241,11 @@ public class CharMove : MonoBehaviour, IReset
     }
     private void SideMove(float dir)
     {
+        if (_jumpTime + _fallTime > _jumpCoolDown)
+        {
+            return;
+        }
+
         IsMoving = true;
         dirType = dir;
         if (IsJumping)
